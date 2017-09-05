@@ -1,0 +1,52 @@
+<script>
+
+    /**
+     * Base class for application settings that are hidden from the user class implementation
+     */
+    class AppStates {
+
+        /**
+         * Declare all settings that will be available for all engines
+         */
+        constructor() {
+            this.showDownloads = false;
+        }
+
+        /**
+         * Load and apply the settings and configurations from the given profile.
+         * Callback will be executed after the data has been loaded.
+         * Callback will be provided with an error (or null if no error).
+         */
+        loadProfile( profile, callback ) {
+            Engine.Storage.loadFromDB( 'state', profile, ( data, error) => {
+                // apply states
+                if( !error && data ) {
+                    for( let property in this) {
+                        if( property in data ) {
+                            this[property] = data[property];
+                        }
+                    }
+                }
+                ( callback ? callback( error ) : undefined );
+            });
+        }
+
+        /**
+         * Save the current settings and configurations for the given profile.
+         * Callback will be executed after the data has been saved.
+         * Callback will be provided with an error (or null if no error).
+         */
+        saveProfile( profile, callback ) {
+            let data = {};
+            // gather general settings
+            for( let property in this) {
+                data[property] = this[property];
+            }
+            Engine.Storage.saveToDB( 'state', profile, data, ( error) => {
+                (callback ? callback( error ) : undefined );
+            });
+        }
+    }
+    AppStates; // reference the class to prevent removal of the class through js-minify
+
+</script>
