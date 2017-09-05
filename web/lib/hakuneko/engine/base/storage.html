@@ -66,7 +66,7 @@
          */
         saveToDB( collection, key, value, callback ) {
             // https://gist.github.com/BigstickCarpet/a0d6389a5d0e3a24814b
-            let scheme = ( window.indexedDB || window.mozIndexedDB || window.msIndexedDB ).open( 'hakuneko', 2 );
+            let scheme = ( window.indexedDB || window.mozIndexedDB || window.msIndexedDB ).open( 'hakuneko', 3 );
             scheme.onupgradeneeded = this.createIndexedDBScheme;
             scheme.onsuccess = function( event ) {
                 let db = event.target.result;
@@ -90,7 +90,7 @@
          */
         loadFromDB( collection, key, callback ) {
             // https://gist.github.com/BigstickCarpet/a0d6389a5d0e3a24814b
-            let scheme = ( window.indexedDB || window.mozIndexedDB || window.msIndexedDB ).open( 'hakuneko', 2 );
+            let scheme = ( window.indexedDB || window.mozIndexedDB || window.msIndexedDB ).open( 'hakuneko', 3 );
             scheme.onupgradeneeded = this.createIndexedDBScheme;
             scheme.onsuccess = function( event ) {
                 let db = event.target.result;
