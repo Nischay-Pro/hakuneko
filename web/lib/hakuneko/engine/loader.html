@@ -1,6 +1,7 @@
 <link rel="import" href="cloud.html">
 <link rel="import" href="daemon.html">
 <link rel="import" href="electron.html">
+<link rel="import" href="base/states.html">
 <link rel="import" href="base/downloader.html">
 <link rel="import" href="base/connectors.html">
 <link rel="import" href="base/bookmarks.html">
@@ -56,6 +57,16 @@
         /**
          *
          */
+        static get AppStates() {
+            if( !this._instanceAppStates ) {
+                this._instanceAppStates = this.CreateInstance( AppStates, AppStates, undefined );
+            }
+            return this._instanceAppStates;
+        }
+
+        /**
+         *
+         */
         static get Settings() {
             if( !this._instanceSettings ) {
                 this._instanceSettings = this.CreateInstance( SettingsCloud, SettingsElectron, undefined );
@@ -85,6 +96,7 @@
         }
     }
 
+    Engine.AppStates.loadProfile( 'default', undefined );
     Engine.Settings.loadProfile( 'default', undefined );
     Engine.BookmarkManager.loadProfile( 'default', undefined );
 
