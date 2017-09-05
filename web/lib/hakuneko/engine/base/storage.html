@@ -50,6 +50,11 @@
                 db.deleteObjectStore( 'bookmarks' );
                 db.createObjectStore( 'bookmarks' );
             }
+            // create new objectstores for application states and markers for last read chapter
+            if( event.oldVersion < 3 ) {
+                db.createObjectStore( 'appstates' );
+                db.createObjectStore( 'chaptermarks' );
+            }
         }
 
         /**
