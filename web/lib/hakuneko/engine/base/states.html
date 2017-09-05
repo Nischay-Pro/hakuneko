@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Base class for application settings that are hidden from the user class implementation
+     * Class for application settings that are hidden from the user class implementation
      */
     class AppStates {
 
@@ -9,16 +9,17 @@
          * Declare all settings that will be available for all engines
          */
         constructor() {
+            // show or hide the download manager for chapters
             this.showDownloads = false;
         }
 
         /**
-         * Load and apply the settings and configurations from the given profile.
+         * Load and apply the application state from the given profile.
          * Callback will be executed after the data has been loaded.
          * Callback will be provided with an error (or null if no error).
          */
         loadProfile( profile, callback ) {
-            Engine.Storage.loadFromDB( 'state', profile, ( data, error) => {
+            Engine.Storage.loadFromDB( 'appstates', profile, ( data, error) => {
                 // apply states
                 if( !error && data ) {
                     for( let property in this) {
@@ -32,7 +33,7 @@
         }
 
         /**
-         * Save the current settings and configurations for the given profile.
+         * Save the current application state for the given profile.
          * Callback will be executed after the data has been saved.
          * Callback will be provided with an error (or null if no error).
          */
@@ -42,7 +43,7 @@
             for( let property in this) {
                 data[property] = this[property];
             }
-            Engine.Storage.saveToDB( 'state', profile, data, ( error) => {
+            Engine.Storage.saveToDB( 'appstates', profile, data, ( error) => {
                 (callback ? callback( error ) : undefined );
             });
         }
